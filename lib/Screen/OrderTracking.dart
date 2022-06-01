@@ -156,9 +156,9 @@ class _TrackingProdContentState extends State<TrackingProdContent> {
                   style: labelTextStyle,
                 ),
                 InkWell(
-                    onTap: () {
-                      print(widget.prodNumber['transaction_id']);
-                      print(widget.prodNumber['total']);
+                    onTap: widget.prodNumber['status']== 'pending' ? () {
+                      // print(widget.prodNumber['transaction_id']);
+                      // print(widget.prodNumber['total']);
                       BlocProvider.of<OrderBloc>(context, listen: false)
                         ..add(OrderItemDelEvent(
                             ammount: widget.prodNumber['total'],
@@ -169,12 +169,12 @@ class _TrackingProdContentState extends State<TrackingProdContent> {
                               "${widget.prodNumber['transaction_id']}",
                           ammount: double.parse(
                               widget.prodNumber['total'].toString()));
-                    },
+                    } : null,
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 6),
                       alignment: Alignment.topRight,
                       child: Txt(
-                        t: 'Cancel',
+                        t: widget.prodNumber['status'] == 'pending' ?'Cancel' : widget.prodNumber['status'] ,
                         color: redColor,
                       ),
                     )),
